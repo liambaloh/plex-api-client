@@ -31,5 +31,10 @@ data class Stream(
     @JacksonXmlProperty(localName = "scanType", isAttribute = true) val scanType: String? = null,
     @JacksonXmlProperty(localName = "width", isAttribute = true) val width: String? = null,
     @JacksonXmlProperty(localName = "displayTitle", isAttribute = true) val displayTitle: String? = null,
-    @JacksonXmlProperty(localName = "extendedDisplayTitle", isAttribute = true) val extendedDisplayTitle: String? = null
+    @JacksonXmlProperty(localName = "extendedDisplayTitle", isAttribute = true) val extendedDisplayTitle: String? = null,
+    @JacksonXmlProperty(localName = "selected", isAttribute = true) val selected: Int? = null,
+    @JacksonXmlProperty(localName = "default", isAttribute = true) val default: Int? = null,
+    @JacksonXmlProperty(localName = "channels", isAttribute = true) val channels: Int? = null,
+    @JacksonXmlProperty(localName = "samplingRate", isAttribute = true) val samplingRate: Int? = null,
+    @JacksonXmlProperty(localName = "title", isAttribute = true) val title: String? = null
 )

@@ -46,6 +46,9 @@ data class Video(
     @JacksonXmlProperty(localName = "grandparentThumb", isAttribute = true) val grandparentThumb: String? = null,
     @JacksonXmlProperty(localName = "grandparentArt", isAttribute = true) val grandparentArt: String? = null,
     @JacksonXmlProperty(localName = "grandparentTheme", isAttribute = true) val grandparentTheme: String? = null,
+    @JacksonXmlProperty(localName = "librarySectionTitle", isAttribute = true) val librarySectionTitle: String? = null,
+    @JacksonXmlProperty(localName = "librarySectionID", isAttribute = true) val librarySectionID: Int? = null,
+    @JacksonXmlProperty(localName = "librarySectionKey", isAttribute = true) val librarySectionKey: String? = null,
     @JacksonXmlElementWrapper(useWrapping = true)
     @JacksonXmlProperty(localName = "Genre") val genres: List<Genre>? = emptyList(),
     @JacksonXmlElementWrapper(useWrapping = true)

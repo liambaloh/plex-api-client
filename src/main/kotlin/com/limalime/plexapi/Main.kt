@@ -50,6 +50,8 @@ fun main() {
                                 val episodesMetadata = plexApi.getSeasonEpisodes(seasonDirectory.ratingKey!!.toInt())
                                 episodesMetadata.videos?.forEachIndexed{ episodeIndex, episodeDirectory ->
                                     println(" | | |-> ${episodeDirectory.title} (Key: ${episodeDirectory.ratingKey})")
+                                    val episodeMetadata = plexApi.getEpisodeMetadata(episodeDirectory.ratingKey!!.toInt())
+                                    println(" | | | * ${episodeMetadata.videos?.firstOrNull()?.summary}")
                                 }
                             }
                         }
