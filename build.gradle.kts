@@ -13,6 +13,7 @@ repositories {
 dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.14.0")
     testImplementation(kotlin("test"))
+    testImplementation("io.mockk:mockk:1.12.0")
 }
 
 tasks.test {

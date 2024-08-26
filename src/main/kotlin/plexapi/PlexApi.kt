@@ -3,6 +3,7 @@ package com.productmadness.plexapi
 import MediaContainerForLibraries
 import MediaContainerForLibraryAlbums
 import MediaContainerForLibraryArtists
+import MediaContainerForLibraryFilms
 import MediaContainerForLibrarySeries
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import java.net.URI
@@ -69,6 +70,20 @@ class PlexApi(private val url: String, private val token: String) {
 
         val xmlMapper = XmlMapper()
         return xmlMapper.readValue(xml, MediaContainerForLibrarySeries::class.java)
+    }
+
+    fun getFilms(libraryId: Int): MediaContainerForLibraryFilms {
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("$url/library/sections/$libraryId/all"))
+            .header("X-Plex-Token", token)
+            .GET()
+            .build()
+
+        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+        val xml = response.body()
+
+        val xmlMapper = XmlMapper()
+        return xmlMapper.readValue(xml, MediaContainerForLibraryFilms::class.java)
     }
 
 }

@@ -17,19 +17,26 @@ fun main() {
 
         println("Libraries")
         libraries.directory.forEachIndexed { index, directory ->
-            println("$index -> ${directory.title} Key: ${directory.key} = (${directory.type})")
+            println("$index -> ${directory.title} (Key: ${directory.key}, type: ${directory.type})")
         }
 
 
         libraries.directory.forEachIndexed { libraryIndex, libraryDirectory ->
             println("# ${libraryDirectory.title}")
             when (libraryDirectory.type) {
-                "movie" -> {}
+                "movie" -> {
+                    println("## Films")
+                    val series = plexApi.getFilms(libraryDirectory.key!!.toInt())
+                    series.videos.forEachIndexed { videoIndex, videoDirectory ->
+                        println(" * Film $videoIndex -> ${videoDirectory.title}")
+                    }
+                }
+
                 "show" -> {
-                    println("## Artists")
+                    println("## Series")
                     val series = plexApi.getSeries(libraryDirectory.key!!.toInt())
-                    series.directory.forEachIndexed { albumIndex, albumDirectory ->
-                        println(" * Series $albumIndex -> ${albumDirectory.title}")
+                    series.directory.forEachIndexed { seriesIndex, seriesDirectory ->
+                        println(" * Series $seriesIndex -> ${seriesDirectory.title}")
                     }
                 }
 
@@ -41,7 +48,7 @@ fun main() {
                     }
 
                     println("## Albums")
-                    val albums = plexApi.getAlbums(libraryDirectory.key!!.toInt())
+                    val albums = plexApi.getAlbums(libraryDirectory.key.toInt())
                     albums.directory.forEachIndexed { albumIndex, albumDirectory ->
                         println(" * Album $albumIndex -> ${albumDirectory.title}")
                     }
