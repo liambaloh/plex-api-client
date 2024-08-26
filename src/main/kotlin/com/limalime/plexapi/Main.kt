@@ -20,7 +20,6 @@ fun main() {
             println("$index -> ${directory.title} (Key: ${directory.key}, type: ${directory.type})")
         }
 
-
         libraries.directory.forEachIndexed { libraryIndex, libraryDirectory ->
             println("# ${libraryDirectory.title}")
             when (libraryDirectory.type) {
@@ -61,15 +60,19 @@ fun main() {
                 "artist" -> {
                     println("## Artists")
                     val artists = plexApi.getArtists(libraryDirectory.key!!.toInt())
-                    artists.directory.forEachIndexed { albumIndex, albumDirectory ->
-                        println(" * Artist $albumIndex -> ${albumDirectory.title} (Key: ${albumDirectory.ratingKey})")
+                    artists.directory.forEachIndexed { artistIndex, artistDirectory ->
+                        println(" * Artist $artistIndex -> ${artistDirectory.title} (Key: ${artistDirectory.ratingKey})")
+                        val albumsMetadata = plexApi.getArtistAlbums(libraryDirectory.key, artistDirectory.ratingKey!!.toInt())
+                        albumsMetadata.directories?.forEachIndexed{ albumIndex, albumDirectory ->
+                            println(" | -> ${albumDirectory.title} (Key: ${albumDirectory.ratingKey})")
+                        }
                     }
 
-                    println("## Albums")
-                    val albums = plexApi.getAlbums(libraryDirectory.key.toInt())
-                    albums.directory.forEachIndexed { albumIndex, albumDirectory ->
-                        println(" * Album $albumIndex -> ${albumDirectory.title} (Key: ${albumDirectory.ratingKey})")
-                    }
+                    //println("## Albums")
+                    //val albums = plexApi.getAlbums(libraryDirectory.key.toInt())
+                    //albums.directory.forEachIndexed { albumIndex, albumDirectory ->
+                    //    println(" * Album $albumIndex -> ${albumDirectory.title} (Key: ${albumDirectory.ratingKey})")
+                    //}
                 }
             }
         }

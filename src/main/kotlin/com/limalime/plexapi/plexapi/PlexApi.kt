@@ -110,6 +110,20 @@ class PlexApi(private val url: String, private val token: String) {
         return xmlMapper.readValue(xml, MediaContainerForSeasonEpisodes::class.java)
     }
 
+    fun getArtistAlbums(libraryId: Int, ratingKey: Int): MediaContainerForArtistAlbums {
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("$url/library/sections/$libraryId/all?artist.id=$ratingKey&type=9"))
+            .header("X-Plex-Token", token)
+            .GET()
+            .build()
+
+        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+        val xml = response.body()
+
+        val xmlMapper = XmlMapper()
+        return xmlMapper.readValue(xml, MediaContainerForArtistAlbums::class.java)
+    }
+
     fun getFilmMetadata(ratingKey: Int): MediaContainerForFilmMetadata {
         val request = HttpRequest.newBuilder()
             .uri(URI.create("$url/library/metadata/$ratingKey"))
