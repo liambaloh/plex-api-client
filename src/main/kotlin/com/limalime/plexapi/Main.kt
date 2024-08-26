@@ -65,6 +65,10 @@ fun main() {
                         val albumsMetadata = plexApi.getArtistAlbums(libraryDirectory.key, artistDirectory.ratingKey!!.toInt())
                         albumsMetadata.directories?.forEachIndexed{ albumIndex, albumDirectory ->
                             println(" | -> ${albumDirectory.title} (Key: ${albumDirectory.ratingKey})")
+                            val tracksMetadata = plexApi.getAlbumTracks(albumDirectory.ratingKey!!.toInt())
+                            tracksMetadata.tracks?.forEachIndexed{ trackIndex, trackDirectory ->
+                                println(" | | -> ${trackDirectory.title} (Key: ${trackDirectory.ratingKey})")
+                            }
                         }
                     }
 

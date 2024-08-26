@@ -14,6 +14,7 @@ data class Part(
     @JacksonXmlProperty(localName = "audioProfile", isAttribute = true) val audioProfile: String? = null,
     @JacksonXmlProperty(localName = "container", isAttribute = true) val container: String? = null,
     @JacksonXmlProperty(localName = "videoProfile", isAttribute = true) val videoProfile: String? = null,
+    @JacksonXmlProperty(localName = "hasThumbnail", isAttribute = true) val hasThumbnail: Int? = null,
     @JacksonXmlElementWrapper(useWrapping = false)
     @JacksonXmlProperty(localName = "Stream") val streams: List<Stream>? = null,
 )
