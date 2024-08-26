@@ -39,6 +39,8 @@ fun main() {
                     val series = plexApi.getSeries(libraryDirectory.key!!.toInt())
                     series.directory.forEachIndexed { seriesIndex, seriesDirectory ->
                         println(" | Series $seriesIndex -> ${seriesDirectory.title} (Key: ${seriesDirectory.ratingKey})")
+                        val seriesMetadata = plexApi.getSeriesMetadata(seriesDirectory.ratingKey!!.toInt())
+                        println(" | * ${seriesMetadata.directories?.firstOrNull()?.summary}")
                         val seasonsMetadata = plexApi.getSeriesSeasons(seriesDirectory.ratingKey!!.toInt())
                         seasonsMetadata.directories?.forEachIndexed{ seasonIndex, seasonDirectory ->
                             println(" | |-> ${seasonDirectory.title} (Key: ${seasonDirectory.ratingKey})")

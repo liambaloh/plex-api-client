@@ -3,5 +3,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Collection(
+    @JacksonXmlProperty(localName = "id", isAttribute = true) val id: Int? = null,
+    @JacksonXmlProperty(localName = "filter", isAttribute = true) val filter: String? = null,
     @JacksonXmlProperty(localName = "tag", isAttribute = true) val tag: String? = null
 )

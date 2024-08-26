@@ -7,6 +7,7 @@ import MediaContainerForLibraryFilms
 import MediaContainerForLibrarySeries
 import MediaContainerForFilmMetadata
 import MediaContainerForSeasonEpisodes
+import MediaContainerForSeriesMetadata
 import MediaContainerForSeriesSeasons
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import java.net.URI
@@ -129,6 +130,20 @@ class PlexApi(private val url: String, private val token: String) {
 
         val xmlMapper = XmlMapper()
         return xmlMapper.readValue(xml, MediaContainerForFilmMetadata::class.java)
+    }
+
+    fun getSeriesMetadata(ratingKey: Int): MediaContainerForSeriesMetadata {
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("$url/library/metadata/$ratingKey"))
+            .header("X-Plex-Token", token)
+            .GET()
+            .build()
+
+        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+        val xml = response.body()
+
+        val xmlMapper = XmlMapper()
+        return xmlMapper.readValue(xml, MediaContainerForSeriesMetadata::class.java)
     }
 
 }
