@@ -39,9 +39,15 @@ fun main() {
                     val series = plexApi.getSeries(libraryDirectory.key!!.toInt())
                     series.directory.forEachIndexed { seriesIndex, seriesDirectory ->
                         println(" | Series $seriesIndex -> ${seriesDirectory.title} (Key: ${seriesDirectory.ratingKey})")
-                        val metadata = plexApi.getSeriesSeasons(seriesDirectory.ratingKey!!.toInt())
-                        metadata.directories?.forEachIndexed{ seasonIndex, seasonDirectory ->
+                        val seasonsMetadata = plexApi.getSeriesSeasons(seriesDirectory.ratingKey!!.toInt())
+                        seasonsMetadata.directories?.forEachIndexed{ seasonIndex, seasonDirectory ->
                             println(" | |-> ${seasonDirectory.title} (Key: ${seasonDirectory.ratingKey})")
+                            if(seasonDirectory.ratingKey != null){
+                                val episodesMetadata = plexApi.getSeasonEpisodes(seasonDirectory.ratingKey!!.toInt())
+                                episodesMetadata.videos?.forEachIndexed{ episodeIndex, episodeDirectory ->
+                                    println(" | | |-> ${episodeDirectory.title} (Key: ${episodeDirectory.ratingKey})")
+                                }
+                            }
                         }
                     }
                 }
