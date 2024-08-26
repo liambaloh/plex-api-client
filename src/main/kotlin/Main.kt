@@ -28,7 +28,9 @@ fun main() {
                     println("## Films")
                     val series = plexApi.getFilms(libraryDirectory.key!!.toInt())
                     series.videos.forEachIndexed { videoIndex, videoDirectory ->
-                        println(" * Film $videoIndex -> ${videoDirectory.title}")
+                        println(" | Film $videoIndex -> ${videoDirectory.title} (Key: ${videoDirectory.ratingKey})")
+                        val metadata = plexApi.getMetadata(videoDirectory.ratingKey!!.toInt())
+                        println(" | |-> ${metadata.videos?.firstOrNull()?.summary}")
                     }
                 }
 
@@ -36,7 +38,7 @@ fun main() {
                     println("## Series")
                     val series = plexApi.getSeries(libraryDirectory.key!!.toInt())
                     series.directory.forEachIndexed { seriesIndex, seriesDirectory ->
-                        println(" * Series $seriesIndex -> ${seriesDirectory.title}")
+                        println(" * Series $seriesIndex -> ${seriesDirectory.title} (Key: ${seriesDirectory.ratingKey})")
                     }
                 }
 
@@ -44,13 +46,13 @@ fun main() {
                     println("## Artists")
                     val artists = plexApi.getArtists(libraryDirectory.key!!.toInt())
                     artists.directory.forEachIndexed { albumIndex, albumDirectory ->
-                        println(" * Artist $albumIndex -> ${albumDirectory.title}")
+                        println(" * Artist $albumIndex -> ${albumDirectory.title} (Key: ${albumDirectory.ratingKey})")
                     }
 
                     println("## Albums")
                     val albums = plexApi.getAlbums(libraryDirectory.key.toInt())
                     albums.directory.forEachIndexed { albumIndex, albumDirectory ->
-                        println(" * Album $albumIndex -> ${albumDirectory.title}")
+                        println(" * Album $albumIndex -> ${albumDirectory.title} (Key: ${albumDirectory.ratingKey})")
                     }
                 }
             }

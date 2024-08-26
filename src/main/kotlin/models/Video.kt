@@ -42,5 +42,11 @@ data class Video(
     @JacksonXmlElementWrapper(useWrapping = true)
     @JacksonXmlProperty(localName = "Role") val roles: List<Role>? = emptyList(),
     @JacksonXmlElementWrapper(useWrapping = true)
-    @JacksonXmlProperty(localName = "Media") val media: List<Media>? = emptyList()
+    @JacksonXmlProperty(localName = "Media") val media: List<Media>? = emptyList(),
+    @JacksonXmlElementWrapper(useWrapping = true)
+    @JacksonXmlProperty(localName = "Guid") val guids: List<Guid>? = emptyList(),
+    @JacksonXmlElementWrapper(useWrapping = true)
+    @JacksonXmlProperty(localName = "Rating") val ratings: List<Rating>? = emptyList(),
+    @JacksonXmlElementWrapper(useWrapping = true)
+    @JacksonXmlProperty(localName = "Producer") val producers: List<Producer>? = emptyList(),
 )
