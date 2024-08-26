@@ -1,6 +1,6 @@
 package com.productmadness
 
-import MediaContainer
+import MediaContainerForLibraries
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
 import java.io.FileInputStream
 import java.net.URI
@@ -28,7 +28,7 @@ fun main() {
         val xml = response.body()
 
         val xmlMapper = XmlMapper()
-        val mediaContainer = xmlMapper.readValue(xml, MediaContainer::class.java)
+        val mediaContainer = xmlMapper.readValue(xml, MediaContainerForLibraries::class.java)
 
         mediaContainer.directory.forEach { directory ->
             println(directory.title)

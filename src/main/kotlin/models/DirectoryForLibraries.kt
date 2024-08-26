@@ -3,7 +3,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class Directory(
+data class DirectoryForLibraries(
     @JacksonXmlProperty(localName = "allowSync", isAttribute = true) val allowSync: Int? = null,
     @JacksonXmlProperty(localName = "art", isAttribute = true) val art: String? = null,
     @JacksonXmlProperty(localName = "composite", isAttribute = true) val composite: String? = null,
