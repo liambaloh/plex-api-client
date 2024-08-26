@@ -5,7 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JacksonXmlRootElement(localName = "MediaContainer")
-data class MediaContainerForMetadata(
+data class MediaContainerForFilmMetadata(
     @JacksonXmlProperty(localName = "size", isAttribute = true) val size: Int? = null,
     @JacksonXmlProperty(localName = "allowSync", isAttribute = true) val allowSync: Int? = null,
     @JacksonXmlProperty(localName = "identifier", isAttribute = true) val identifier: String? = null,

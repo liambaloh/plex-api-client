@@ -29,7 +29,7 @@ fun main() {
                     val series = plexApi.getFilms(libraryDirectory.key!!.toInt())
                     series.videos.forEachIndexed { videoIndex, videoDirectory ->
                         println(" | Film $videoIndex -> ${videoDirectory.title} (Key: ${videoDirectory.ratingKey})")
-                        val metadata = plexApi.getMetadata(videoDirectory.ratingKey!!.toInt())
+                        val metadata = plexApi.getFilmMetadata(videoDirectory.ratingKey!!.toInt())
                         println(" | |-> ${metadata.videos?.firstOrNull()?.summary}")
                     }
                 }

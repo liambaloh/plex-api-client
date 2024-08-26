@@ -5,7 +5,7 @@ import MediaContainerForLibraryAlbums
 import MediaContainerForLibraryArtists
 import MediaContainerForLibraryFilms
 import MediaContainerForLibrarySeries
-import MediaContainerForMetadata
+import MediaContainerForFilmMetadata
 import MediaContainerForSeasonEpisodes
 import MediaContainerForSeriesSeasons
 import com.fasterxml.jackson.dataformat.xml.XmlMapper
@@ -89,20 +89,6 @@ class PlexApi(private val url: String, private val token: String) {
         return xmlMapper.readValue(xml, MediaContainerForLibraryFilms::class.java)
     }
 
-    fun getMetadata(ratingKey: Int): MediaContainerForMetadata {
-        val request = HttpRequest.newBuilder()
-            .uri(URI.create("$url/library/metadata/$ratingKey"))
-            .header("X-Plex-Token", token)
-            .GET()
-            .build()
-
-        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
-        val xml = response.body()
-
-        val xmlMapper = XmlMapper()
-        return xmlMapper.readValue(xml, MediaContainerForMetadata::class.java)
-    }
-
     fun getSeriesSeasons(ratingKey: Int): MediaContainerForSeriesSeasons {
         val request = HttpRequest.newBuilder()
             .uri(URI.create("$url/library/metadata/$ratingKey/children"))
@@ -129,6 +115,20 @@ class PlexApi(private val url: String, private val token: String) {
 
         val xmlMapper = XmlMapper()
         return xmlMapper.readValue(xml, MediaContainerForSeasonEpisodes::class.java)
+    }
+
+    fun getFilmMetadata(ratingKey: Int): MediaContainerForFilmMetadata {
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create("$url/library/metadata/$ratingKey"))
+            .header("X-Plex-Token", token)
+            .GET()
+            .build()
+
+        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+        val xml = response.body()
+
+        val xmlMapper = XmlMapper()
+        return xmlMapper.readValue(xml, MediaContainerForFilmMetadata::class.java)
     }
 
 }
