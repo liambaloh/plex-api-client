@@ -16,9 +16,32 @@ fun main() {
         val libraries = plexApi.getLibraries()
 
         println("Libraries")
-        libraries.directory.forEach { directory ->
-            println(directory.title)
+        libraries.directory.forEachIndexed { index, directory ->
+            println("$index -> ${directory.title} (${directory.type})")
         }
+
+
+        libraries.directory.forEachIndexed { libraryIndex, libraryDirectory ->
+            println("# ${libraryDirectory.title}")
+            when (libraryDirectory.type) {
+                "movie" -> {}
+                "show" -> {}
+                "artist" -> {
+                    println("## Artists")
+                    val artists = plexApi.getArtists(libraryDirectory.key!!.toInt())
+                    artists.directory.forEachIndexed { albumIndex, albumDirectory ->
+                        println(" * Artist $albumIndex -> ${albumDirectory.title}")
+                    }
+
+                    println("## Albums")
+                    val albums = plexApi.getAlbums(libraryDirectory.key!!.toInt())
+                    albums.directory.forEachIndexed { albumIndex, albumDirectory ->
+                        println(" * Album $albumIndex -> ${albumDirectory.title}")
+                    }
+                }
+            }
+        }
+
     } catch (e: Exception) {
         // handle exception
         throw e
