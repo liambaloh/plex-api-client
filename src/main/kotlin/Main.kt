@@ -1,12 +1,7 @@
 package com.productmadness
 
-import MediaContainerForLibraries
-import com.fasterxml.jackson.dataformat.xml.XmlMapper
+import com.productmadness.plexapi.PlexApi
 import java.io.FileInputStream
-import java.net.URI
-import java.net.http.HttpClient
-import java.net.http.HttpRequest
-import java.net.http.HttpResponse
 import java.util.*
 
 fun main() {
@@ -17,23 +12,13 @@ fun main() {
         val url = properties.getProperty("url")
         val token = properties.getProperty("token")
 
-        val client = HttpClient.newBuilder().build()
-        val request = HttpRequest.newBuilder()
-            .uri(URI.create("$url/library/sections"))
-            .header("X-Plex-Token", token)
-            .GET()
-            .build()
+        val plexApi = PlexApi(url, token)
+        val libraries = plexApi.getLibraries()
 
-        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
-        val xml = response.body()
-
-        val xmlMapper = XmlMapper()
-        val mediaContainer = xmlMapper.readValue(xml, MediaContainerForLibraries::class.java)
-
-        mediaContainer.directory.forEach { directory ->
+        println("Libraries")
+        libraries.directory.forEach { directory ->
             println(directory.title)
         }
-
     } catch (e: Exception) {
         // handle exception
         throw e
