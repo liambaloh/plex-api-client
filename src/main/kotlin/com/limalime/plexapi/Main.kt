@@ -22,7 +22,7 @@ fun main() {
 
         val printFilms = false
         val printShows = false
-        val printMusic = false
+        val printMusic = true
 
         libraries.directory.forEachIndexed { libraryIndex, libraryDirectory ->
             println("# ${libraryDirectory.title}")
@@ -79,7 +79,7 @@ fun main() {
                                 println(" | -> ${albumDirectory.title} (Key: ${albumDirectory.ratingKey})")
                                 val tracksMetadata = plexApi.getAlbumTracks(albumDirectory.ratingKey!!.toInt())
                                 tracksMetadata.tracks?.forEachIndexed { trackIndex, trackDirectory ->
-                                    println(" | | -> ${trackDirectory.title} (Key: ${trackDirectory.ratingKey})")
+                                    println(" | | -> ${trackDirectory.parentIndex}-${trackDirectory.index} ${trackDirectory.title} (Key: ${trackDirectory.ratingKey})")
                                 }
                             }
                         }
